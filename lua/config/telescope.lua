@@ -1,0 +1,152 @@
+local telescope = require("telescope")
+local telescope_builtin = require("telescope.builtin")
+local telescope_actions = require("telescope.actions")
+local M = {}
+
+telescope.setup({
+  defaults = {
+    file_ignore_patterns = {
+      "node_modules",
+      ".git",
+      "BurpSuiteCommunity",
+      ".alias",
+      ".android",
+      ".ansible",
+      ".anydesk",
+      ".arduino15",
+      ".arduinoIDE",
+      ".aws",
+      ".bash_history",
+      ".bash_logout",
+      ".bashrc",
+      ".BurpSuite",
+      ".cache",
+      ".cme",
+      ".config",
+      ".dbus",
+      ".dbvis",
+      ".docker",
+      ".dotnet",
+      ".eclipse",
+      ".fonts",
+      ".fzf",
+      ".fzf.bash",
+      ".fzf.zsh",
+      ".gconf",
+      ".Genymobile",
+      ".ghidra",
+      ".gitconfig",
+      ".git-credentials",
+      ".gnome",
+      ".gnupg",
+      ".go",
+      ".gphoto",
+      ".gradle",
+      ".groovy",
+      ".guake-indicator",
+      ".huggingface",
+      ".idapro",
+      ".ipython",
+      ".java",
+      ".john",
+      ".jupyter",
+      ".jwt_tool",
+      ".lesshst",
+      ".local",
+      ".m2",
+      ".mc",
+      ".minecraft",
+      ".mitmproxy",
+      ".mongorc.js",
+      ".mono",
+      ".mozilla",
+      ".msf4",
+      ".mysql_history",
+      ".nc_history",
+      ".netrc",
+      ".npm",
+      ".nv",
+      ".nvidia-settings-rc",
+      ".nvm",
+      ".oh-my-zsh",
+      ".ovftool.ssldb",
+      ".p10k.zsh",
+      ".pam_environment",
+      ".pki",
+      ".profile",
+      ".profile.bak",
+      ".proxy",
+      ".putty",
+      ".pyenv",
+      ".pytest_cache",
+      ".python_history",
+      ".python_history-46293.tmp",
+      ".recently-used",
+      ".rediscli_history",
+      ".rvm",
+      ".searchsploit_rc",
+      ".selected_editor",
+      ".shell.pre-oh-my-zsh",
+      ".sonarlint",
+      ".sqsh_history",
+      ".sqsh_readline",
+      ".ssh",
+      ".sstimap",
+      ".steam",
+      ".steampath",
+      ".steampid",
+      ".sudo_as_admin_successful",
+      ".swt",
+      ".thunderbird",
+      ".tldr",
+      ".tmux",
+      ".tmux.conf",
+      ".tmux-session",
+      ".var",
+      ".venv",
+      ".vim",
+      ".viminfo",
+      ".vimrc",
+      ".vmware",
+      ".vscode",
+      ".vscode-react-native",
+      ".wget-hsts",
+      ".wine",
+      ".wpscan",
+      ".yarn",
+      ".yarnrc",
+      ".ZAP",
+      ".zcompdump*",
+      ".zoom",
+      ".zsh_history",
+      ".zshrc*",
+    },
+    prompt_position = "top",
+    layout_strategy = "horizontal",
+    sorting_strategy = "ascending",
+    use_less = false,
+  },
+})
+
+M.find_files = function()
+  telescope_builtin.find_files({
+    find_command = { "rg", "--files", "--iglob", "!.git", "--hidden" },
+    previewer = false,
+  })
+end
+
+M.live_grep = function()
+  telescope_builtin.live_grep({})
+end
+
+M.file_browser = function()
+  telescope_builtin.file_browser({})
+end
+
+M.buffers = function()
+  telescope_builtin.buffers({
+    previewer = false,
+  })
+end
+
+return M
