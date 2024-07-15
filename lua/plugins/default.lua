@@ -23,27 +23,6 @@ return {
       table.insert(opts.sources, { name = "emoji" })
     end,
   },
-  -- {
-  --   "nvim-telescope/telescope.nvim",
-  --   keys = {
-  --     {
-  --       "<leader>fp",
-  --       function()
-  --         require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
-  --       end,
-  --       desc = "Find Plugin File",
-  --     },
-  --   },
-  --   opts = {
-  --     defaults = {
-  --       layout_strategy = "horizontal",
-  --       layout_config = { prompt_position = "top" },
-  --       sorting_strategy = "ascending",
-  --       winblend = 0,
-  --     },
-  --   },
-  -- },
-
   -- pyright to lspconfig
   {
     "neovim/nvim-lspconfig",
@@ -51,41 +30,24 @@ return {
     opts = {
       ---@type lspconfig.options
       servers = {
-        pyright = {},
+        pyright = {
+          filetypes = { "python" },
+          capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+          on_attach = function(client, bufnr)
+            require("cmp_nvim_lsp").setup({ client = client })
+          end,
+        },
       },
     },
   },
-
-  -- tsserver and setup with typescript.nvim instead of lspconfig
   {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "jose-elias-alvarez/typescript.nvim",
-      init = function()
-        require("lazyvim.util").lsp.on_attach(function(_, buffer)
-          -- stylua: ignore
-          vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
-          vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
-        end)
-      end,
-    },
-    ---@class PluginLspOpts
-    opts = {
-      ---@type lspconfig.options
-      servers = {
-        tsserver = {},
-      },
-      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-      setup = {
-        tsserver = function(_, opts)
-          require("typescript").setup({ server = opts })
-          return true
-        end,
-      },
-    },
+    "jose-elias-alvarez/null-ls.nvim",
+    ---@class PluginNullLsOpts
+    ft = { "python" },
+    opts = function(_, opts)
+      return require("config.null-ls")
+    end,
   },
-
-  { import = "lazyvim.plugins.extras.lang.typescript" },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -111,7 +73,6 @@ return {
 
   "nvim-treesitter/nvim-treesitter",
   opts = function(_, opts)
-    -- add tsx and treesitter
     vim.list_extend(opts.ensure_installed, {
       "tsx",
       "typescript",
@@ -136,11 +97,14 @@ return {
 { import = "lazyvim.plugins.extras.ui.mini-starter" },
 -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
 { import = "lazyvim.plugins.extras.lang.json" },
--- add any tools you want to have installed below
 {
   "williamboman/mason.nvim",
   opts = {
     ensure_installed = {
+      "black",
+      "mypy",
+      "ruff",
+      "debugpy",
       "stylua",
       "shellcheck",
       "shfmt",
