@@ -1,3 +1,3 @@
 require("config.lazy")
 require("config.telescope")
-require("config.copilot")
+require("config.mason")

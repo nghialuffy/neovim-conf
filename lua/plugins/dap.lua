@@ -11,7 +11,7 @@ return {
       "mfussenegger/nvim-dap",
       "rcarriga/nvim-dap-ui",
     },
-    keys = require("config.dap").dap_pythonn,
+    keys = require("config.dap").dap_python,
     config = function()
       local python_path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
       require("dap-python").setup(python_path)

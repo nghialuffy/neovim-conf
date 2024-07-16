@@ -3,18 +3,19 @@ if true then
 end
 
 return {
-  { "ellisonleao/gruvbox.nvim" },
+  -- install theme tokyonight
+  { "folke/tokyonight.nvim" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "tokyonight",
     },
   },
   {
     "folke/trouble.nvim",
     opts = { use_diagnostic_signs = true },
+    enabled = false,
   },
-  { "folke/trouble.nvim", enabled = false },
   {
     "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-emoji" },
@@ -23,7 +24,6 @@ return {
       table.insert(opts.sources, { name = "emoji" })
     end,
   },
-  -- pyright to lspconfig
   {
     "neovim/nvim-lspconfig",
     ---@class PluginLspOpts
@@ -44,11 +44,10 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     ---@class PluginNullLsOpts
     ft = { "python" },
-    opts = function(_, opts)
+    opts = function()
       return require("config.null-ls")
     end,
   },
-
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -70,45 +69,13 @@ return {
       },
     },
   },
-
-  "nvim-treesitter/nvim-treesitter",
-  opts = function(_, opts)
-    vim.list_extend(opts.ensure_installed, {
-      "tsx",
-      "typescript",
-    })
-  end,
-},
-{
-  "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
-  opts = function(_, opts)
-    table.insert(opts.sections.lualine_x, "😄")
-  end,
-},
-{
-  "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
-  opts = function()
-    return {}
-  end,
-},
--- use mini.starter instead of alpha
-{ import = "lazyvim.plugins.extras.ui.mini-starter" },
--- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
-{ import = "lazyvim.plugins.extras.lang.json" },
-{
-  "williamboman/mason.nvim",
-  opts = {
-    ensure_installed = {
-      "black",
-      "mypy",
-      "ruff",
-      "debugpy",
-      "stylua",
-      "shellcheck",
-      "shfmt",
-      "flake8",
-    },
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
+    opts = function(_, opts)
+      table.insert(opts.sections.lualine_x, "😄")
+    end,
   },
+  { import = "lazyvim.plugins.extras.ui.mini-starter" },
+  { import = "lazyvim.plugins.extras.lang.json" },
 }
