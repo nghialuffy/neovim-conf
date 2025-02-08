@@ -19,6 +19,7 @@ require("lazy").setup({
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
+    { "nvim-lua/plenary.nvim" },
   },
   defaults = {
     lazy = false,

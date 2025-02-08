@@ -1,3 +1,5 @@
 require("config.lazy")
+require("config.copilot")
 require("config.telescope")
 require("config.mason")
+require("config.nvim-treesitter")

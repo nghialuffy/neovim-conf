@@ -1,0 +1,15 @@
+return {
+    require("plugins.dap"),
+    require("plugins.lazyvim"),
+    require("plugins.lsp-signature"),
+    require("plugins.lualine"),
+    require("plugins.mason"),
+    require("plugins.null-ls"),
+    require("plugins.nvim-cmp"),
+    require("plugins.nvim-lspconfig"),
+    require("plugins.nvim-treesitter"),
+    require("plugins.telescope"),
+    require("plugins.trouble"),
+    require("plugins.tokyonight"),
+    require("plugins.trouble"),
+}
