@@ -1,8 +1,8 @@
-tt.*
-.tests
-doc/tags
-debug
-.repro
-foo.*
+tags
+en.utf-8.add.spl
+*.exe
+.netrwhist
 *.log
-data
+.DS_Store
+lazy-lock.json
+.env*
