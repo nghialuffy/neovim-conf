@@ -60,19 +60,21 @@ function M.is_compatible_version(expected_version)
 
   if expect_ver == nil then
     local msg = string.format("Unsupported version string: %s", expected_version)
-    vim.api.nvim_echo({ { msg } }, true, { err = true })
+    vim.notify(msg, vim.log.levels.WARN)
     return false
   end
 
-  local result = version.cmp(expect_ver, actual_ver)
-  if result ~= 0 then
+  -- Only warn when the major/minor version differs, so that patch releases
+  -- (e.g. 0.12.6) do not trigger a warning. Use vim.notify rather than an
+  -- error echo: an error here blocks startup with a hit-enter prompt.
+  if expect_ver.major ~= actual_ver.major or expect_ver.minor ~= actual_ver.minor then
     local _ver = string.format("%s.%s.%s", actual_ver.major, actual_ver.minor, actual_ver.patch)
     local msg = string.format(
       "Expect nvim version %s, but your current nvim version is %s. Use at your own risk!",
       expected_version,
       _ver
     )
-    vim.api.nvim_echo({ { msg } }, true, { err = true })
+    vim.notify(msg, vim.log.levels.WARN)
   end
 
   return true

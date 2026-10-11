@@ -162,12 +162,14 @@ local plugin_specs = {
   {
     "nvim-mini/mini.icons",
     version = false,
+    -- load eagerly so that the nvim-web-devicons mock is registered before any
+    -- plugin that looks it up (diffview, fzf-lua, ...)
+    lazy = false,
     config = function()
       -- this is the compatibility fix for plugins that only support nvim-web-devicons
       require("mini.icons").mock_nvim_web_devicons()
       require("mini.icons").tweak_lsp_kind()
     end,
-    lazy = true,
   },
 
   {
